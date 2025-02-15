@@ -14,6 +14,14 @@ class Strategy:
                     return False
             return True
 
+        def is_checkerboard() -> bool:
+            if len(self_history) < 3:
+                return False
+            for i in range(3):
+                if self_history[-i] == opponent_history[-i]:
+                    return False
+            return True
+
         iteration = len(self_history)
         if iteration == 0:
             return True
@@ -22,6 +30,9 @@ class Strategy:
             # No One Mourns The Wicked
             # (always defect if opponent looks like an always-defector)
             return False
+        if is_checkerboard():
+            # Try to break out of the checkerboard pattern that sometimes occurs with `joss`
+            return True
         if self.cooperate_for:
             self.cooperate_for -= 1
             return True
