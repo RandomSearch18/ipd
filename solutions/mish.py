@@ -15,9 +15,11 @@ class Strategy:
             return True
 
         def is_checkerboard() -> bool:
-            if len(self_history) < 3:
+            # 4 seems like the optimal value here
+            look_behind_len = 4
+            if len(self_history) < look_behind_len:
                 return False
-            for i in range(3):
+            for i in range(look_behind_len):
                 if self_history[-i] == opponent_history[-i]:
                     return False
             return True
@@ -37,6 +39,7 @@ class Strategy:
             self.cooperate_for -= 1
             return True
         if opponent_history[-1] is False:
+            # Probability of 0.1 or 0.2 seems optimal here
             if random() < 0.15:
                 # Get scared and try cooperating for a bit
                 self.cooperate_for = 2
